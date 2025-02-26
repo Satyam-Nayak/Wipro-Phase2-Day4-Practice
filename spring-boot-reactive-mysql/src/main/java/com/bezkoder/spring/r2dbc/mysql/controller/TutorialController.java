@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Tutorial API", description = "Operations related to tutorials")
 public class TutorialController {
 
+
   @Autowired
   TutorialService tutorialService;
 
@@ -28,12 +29,14 @@ public class TutorialController {
     return (title == null) ? tutorialService.findAll() : tutorialService.findByTitleContaining(title);
   }
 
+
   @Operation(summary = "Get tutorial by ID", description = "Retrieve a tutorial by its ID")
   @GetMapping("/tutorials/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Mono<Tutorial> getTutorialById(@PathVariable("id") int id) {
     return tutorialService.findById(id);
   }
+
 
   @Operation(summary = "Create a tutorial", description = "Add a new tutorial")
   @PostMapping("/tutorials")
@@ -42,6 +45,7 @@ public class TutorialController {
     return tutorialService.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
   }
 
+
   @Operation(summary = "Update a tutorial", description = "Update an existing tutorial by ID")
   @PutMapping("/tutorials/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -49,12 +53,14 @@ public class TutorialController {
     return tutorialService.update(id, tutorial);
   }
 
+
   @Operation(summary = "Delete tutorial by ID", description = "Remove a tutorial by its ID")
   @DeleteMapping("/tutorials/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public Mono<Void> deleteTutorial(@PathVariable("id") int id) {
     return tutorialService.deleteById(id);
   }
+
 
   @Operation(summary = "Delete all tutorials", description = "Remove all tutorials from the database")
   @DeleteMapping("/tutorials")
